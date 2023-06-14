@@ -7,23 +7,34 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class CarService {
   constructor(private prisma: PrismaService) {}
 
-  create(createCarInput: CreateCarInput) {
-    return 'This action adds a new car';
+  async create(createCarInput: CreateCarInput) {
+    return await this.prisma.car.create({
+      data: {
+        manufacturer: createCarInput.manufacturer,
+        model: createCarInput.model,
+      },
+    });
   }
 
   findAll() {
-    return `This action returns all car`;
+    return this.prisma.car.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} car`;
+    return this.prisma.car.findUnique({ where: { id } });
   }
 
   update(id: number, updateCarInput: UpdateCarInput) {
-    return `This action updates a #${id} car`;
+    return this.prisma.car.update({
+      where: { id },
+      data: {
+        manufacturer: updateCarInput.manufacturer,
+        model: updateCarInput.model,
+      },
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} car`;
+    return this.prisma.car.delete({ where: { id } });
   }
 }
