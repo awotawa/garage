@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCarInput } from './dto/create-car.input';
 import { UpdateCarInput } from './dto/update-car.input';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CarService {
+  constructor(private prisma: PrismaService) {}
+
   create(createCarInput: CreateCarInput) {
     return 'This action adds a new car';
   }
